@@ -1,12 +1,12 @@
 LButton b1;
 Spaceship ship;
 Target t1;
+// PImage is a built in class that will encapsulate information
+PImage[] p = new PImage[5];
+// Using an array to store five 'Planet' objects called 'planets'
+Planet[] planets = new Planet[5];
+// Using an ArrayList to store objects of the 'Star' class called 'stars'
 ArrayList<Star> stars;
-
-
- int SPREAD=64;
-int CX,CY;
-float SPEED=1.9;
 
 void setup()
 {
@@ -18,12 +18,35 @@ void setup()
   for(int i = 0; i < 100;  i++)
   {
     stars.add(new Star());
+  } 
+  
+  for(int i = 0; i < planets.length; i++)
+  {
+    /* Image will be loaded from same directory that has the string "planet"
+    as it's start and will take the value of i and add that to the string followed
+    by "png" which will continue through the loop while i < planets.length
+    */
+    p[i] = loadImage("planet"+i+".png");
+  }
+  
+  for(int i = 0; i < planets.length; i++)
+  {
+    /* A new 'Planet' object will be created and stored in the 'planets' array
+    and will pass on a new PImage type from the PImage array 'p' to the constructor
+    in the 'Planet' class 
+    */
+    planets[i] = new Planet(p[i]);
   }
 }
 
 void draw()
 {
   background(0);
+  for(int i = 0; i < planets.length; i++)
+  {
+    planets[i].move();
+    planets[i].display();
+  }
   if(b1.on)
   {
     t1.display_t();
