@@ -10,6 +10,8 @@ class Asteroid
    and the current position of the mouse's x, y co-ordinates (mouseX, mouseY) This will be checked using the dist() function. */
   int hit = 0;
   
+  boolean rollover = false;
+  
   // Object's constructors
   /*  This constructor comes from void setup(). The PImage array 'a' is first loaded and stored within the current index 'i' of
   the loop and then the ArrayList 'asteroids' gets a new 'Asteroid' object added to it, while passing the 'a[i]' value to the
@@ -85,5 +87,23 @@ class Asteroid
     /* The popMatrix() function will reset all translations and rotations previously specified within pushMatrix() so that when used again,
     rotate() and translate() can have different values without effecting the previous translate() and rotate() */
     popMatrix();
+    if(rollover)
+    {
+      fill(255, 0, 0);
+      text("ASTEROID", 270, 575);
+    }
+  }
+  
+  void rollover(float px, float py) 
+  {
+    float d = dist(px, py, x, y);
+    if (d < 50)
+    {
+        rollover = true; 
+    } 
+    else 
+    {
+        rollover = false;
+    }
   }
 }

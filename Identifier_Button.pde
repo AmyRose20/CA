@@ -1,13 +1,14 @@
-class LButton
+class Identifier_Button
 {
   // Properties/variables of the object
-  float xpos = 60;
+  float xpos = 485;
   float ypos = 400;
-  float r = 12;
+  float w = 40;
+  float h = 20;
   
   // Boolean variables to test if the button is pressed 
-  boolean on = false;
-  boolean off = true;
+  boolean light = false;
+  boolean dark = true;
   
   // Functions of the object
   /* When the mouse is pressed this function will be carried out. The values of mouseX and mouseY will 
@@ -17,38 +18,41 @@ class LButton
   the main program will be able to be carried out. If the value of 'd' is > the radius, then 'on' will be false 
   and 'off' will remain true and no function within draw() or mousPressed() that need on to be 
   true will be carried out. */
-  void clicked_b(float px, float py)
+  void clicked_i(float px, float py)
   {
     float d = dist(px, py, xpos, ypos);
-    if( d < r)
+    if( d < 40)
     {
-      if(off)
+      if(dark)
       {
-        on = true;
-        off = false;
+        light = true;
+        dark = false;
       }
-      else if(on)
+      else if(light)
       {
-       on = false;
-       off = true;
+       light = false;
+       dark = true;
       }
     }
   }
   
   /* Function will display the button and depending on the value of the boolean variable 'on' the colour 
   of the button will change. */
-  void display_b()
+  void display_i()
   {
-    if(on)
+    if(dark)
     {
-       stroke(217, 25, 25);
-       fill(255, 0, 0);
+      stroke(0, 100, 0);
+      fill(34, 139, 34);
     }
     else
     {
-      stroke(140, 3, 3);
-      fill(215, 25, 25);
+      stroke(34, 139, 34);
+      fill(50, 205, 50);
     }
-    ellipse(xpos, ypos, r*2, r*2);
+    rect(xpos, ypos, w, h);
+    stroke(0);
+    fill(255);
+    rect(width - 400, 550, 200, 45);
   }
 }

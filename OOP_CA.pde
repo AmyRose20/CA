@@ -1,4 +1,6 @@
-LButton b1; // Creating an instance of the 'LButton' class called 'b1'
+Button b1; // Creating an instance of the 'Button' class called 'b1'
+Identifier_Button b2;
+Identifier id1;
 Spaceship ship; // Creating an instance of the 'Spaceship' class called 'ship'
 Target t1; // Creating an instance of the 'Target' class called 't1'
 // PImage is a built in class that will encapsulate information
@@ -9,10 +11,14 @@ ArrayList<Star> stars; // Using an ArrayList to store objects of the 'Star' clas
 ArrayList<Asteroid> asteroids;
 float xpos = 650; // global variable passed to the 'asteroids' ArrayList type 'Asteroid' class when creating a new instance within the ArrayList
 
+String[] planet_names = {"JUPITER", "TITAN", "DAGOBAH", "KAMINO", "MUSTAFAR"}; // A string array used to pass the name of each planet to the constructor in 'Planet'
+
 void setup()
 {
   size(600, 600);
-  b1 = new LButton(); // Initiliasing 'b1' as a new 'LButton' object
+  b1 = new Button(); // Initiliasing 'b1' as a new 'LButton' object
+  b2 = new Identifier_Button();
+  id1 = new Identifier();
   t1 = new Target();
   ship = new Spaceship();
   
@@ -34,7 +40,7 @@ void setup()
     and will pass on a new PImage type from the PImage array 'p' to the constructor
     in the 'Planet' class 
     */
-    planets[i] = new Planet(p[i]);
+    planets[i] = new Planet(p[i], planet_names[i]);
   }
   
   asteroids = new ArrayList<Asteroid>(); // Initiliasing 'asteroids' and assign it as an ArrayList of 'Asteroid' objects
@@ -48,11 +54,41 @@ void setup()
 void draw()
 {
   background(0);
+  if(b2.light)
+  {
+    for(int i = asteroids.size()-1; i >= 0; i--)
+    {
+      Asteroid a1 = asteroids.get(i);
+      a1.rollover(mouseX, mouseY);
+    }
+    
+   for(int i = 0; i < planets.length; i++)
+   {
+    planets[i].rollover(mouseX, mouseY); 
+   }
+  }
+  
+  // PLANETS
   for(int i = 0; i < planets.length; i++)
   {
     planets[i].move(); // Call each instance of the array 'planets' from it's template ('Planet'), and carry out the move function within the template
     planets[i].display(); // Call each instance of the array 'planets' from it's template ('Planet'), and carry out the display function within the template
   }
+  
+  // STARS
+  for(int i = stars.size()-1; i >= 0; i--)
+  {
+    Star b = stars.get(i);
+    b.display_stars();
+    b.move();
+    // If the instance of this object returns true from it's remove() function, it will remove the the instance.
+    if(b.remove_s())
+    {
+      stars.remove(i);
+    }
+  }
+  
+  // ASTEROIDS
   for(int i = asteroids.size()-1; i >= 0; i--)
   {
     Asteroid a1 = asteroids.get(i); // An ArrayList doesn't know what it is storing so we have to cast the object coming out, in this case as 'a1'
@@ -66,34 +102,38 @@ void draw()
       asteroids.add(new Asteroid(a[i], xpos));
     }
   }
-  for(int i = stars.size()-1; i >= 0; i--)
-  {
-    Star b = stars.get(i);
-    b.display_stars();
-    b.move();
-    // If the instance of this object returns true from it's remove() function, it will remove the the instance.
-    if(b.remove_s())
-    {
-      stars.remove(i);
-    }
-  }
+  
   /* The instance of the object 't1' of object type 'Target' will only carry out it's display function if the boolean variable 'on' in 'b1' of 
-  type 'LButton' is true. */
+  type 'Button' is true. */
   if(b1.on)
   {
-    t1.display_t(); 
+    // TARGET
+    t1.display_t();
+  }
+  if(b2.light)
+  {
+    // IDENTIFIER
+    id1.display_id();
   }
   
   ship.display(); // Display the intance 'ship' of the 'Ship' object type
-  b1.display_b(); // Display the intance 'b1' of the 'LButton' object type
+  b1.display_b(); // Display the intance 'b1' of the 'Button' object type
+  b2.display_i();
 }
 
 void mousePressed()
 {
-  /* When the mouse is pressed, the x, y co-ordinates of the mouse will be passed to the function clicked_b in the 
-  'LButton' class and assesssed if the mouses x, y co-odinates are less then the radius of the circle using (dist), which means that
+  /* When the mouse is pressed and b2.light = false, the x, y co-ordinates of the mouse will be passed to the function clicked_b in the 
+  'Button' class and assesssed if the mouses x, y co-odinates are less then the radius of the circle using (dist), which means that
   the user will have clicked 'b1' */
-  b1.clicked_b(mouseX, mouseY);
+  if(!b2.light)
+  {
+    b1.clicked_b(mouseX, mouseY);
+  }
+  if(!b1.on)
+  {
+    b2.clicked_i(mouseX, mouseY);
+  }
   /* If the boolean variable on is true, the user will be able to delete stars and asteroids when clicked. */
   if(b1.on)
   {

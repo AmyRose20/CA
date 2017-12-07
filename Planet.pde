@@ -5,14 +5,18 @@ class Planet
   float x = random(-20, 650);
   float y = random(-20, 325);
   float speed = random(0.1, 1);
+  String name;
+  
+  boolean rollover = false;
   
   // Object's constructor
   /*  This constructor comes from void setup(). The PImage array 'p' is first loaded and stored within the current index 'i' of
   the loop and then the array 'planetss' gets a new 'Planet' object added to it, while passing the 'p[i]' value to the
   constructor where it can be used. */
-  Planet(PImage tempPlanet)
+  Planet(PImage tempPlanet, String tempName)
   {
     planet = tempPlanet;
+    name = tempName;
   }
   
   // Functions of the object
@@ -32,5 +36,23 @@ class Planet
   void display()
   {
     image(planet, x, y, 100, 100);
+      if(rollover)
+    {
+      fill(255, 0, 0);
+      text(name, 270, 575);
+    }
+  }
+  
+   void rollover(float px, float py) 
+  {
+    float d = dist(px, py, x, y);
+    if (d < 50)
+    {
+        rollover = true; 
+    } 
+    else 
+    {
+        rollover = false;
+    }
   }
 }
