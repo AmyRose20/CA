@@ -54,19 +54,6 @@ void setup()
 void draw()
 {
   background(0);
-  if(b2.light)
-  {
-    for(int i = asteroids.size()-1; i >= 0; i--)
-    {
-      Asteroid a1 = asteroids.get(i);
-      a1.rollover(mouseX, mouseY);
-    }
-    
-   for(int i = 0; i < planets.length; i++)
-   {
-    planets[i].rollover(mouseX, mouseY); 
-   }
-  }
   
   // PLANETS
   for(int i = 0; i < planets.length; i++)
@@ -102,6 +89,23 @@ void draw()
       asteroids.add(new Asteroid(a[i], xpos));
     }
   }
+  ship.display(); // Display the intance 'ship' of the 'Ship' object type
+  b1.display_b(); // Display the intance 'b1' of the 'Button' object type
+  b2.display_i();
+    
+  if(b2.light)
+  {
+    for(int i = asteroids.size()-1; i >= 0; i--)
+    {
+      Asteroid a1 = asteroids.get(i);
+      a1.rollover(mouseX, mouseY);
+    }
+    
+    for(int i = 0; i < planets.length; i++)
+    {
+      planets[i].rollover(mouseX, mouseY); 
+    }
+  }
   
   /* The instance of the object 't1' of object type 'Target' will only carry out it's display function if the boolean variable 'on' in 'b1' of 
   type 'Button' is true. */
@@ -115,10 +119,6 @@ void draw()
     // IDENTIFIER
     id1.display_id();
   }
-  
-  ship.display(); // Display the intance 'ship' of the 'Ship' object type
-  b1.display_b(); // Display the intance 'b1' of the 'Button' object type
-  b2.display_i();
 }
 
 void mousePressed()

@@ -3,7 +3,7 @@ class Asteroid
   // Properties/variables of the object
   PImage asteroid; // PImage contains pixel width/height
   float x = random(-20, 650); // The x-axis position of the asteroid, containing a random value between -20 to 650 
-  float y = random(-20, 325); // The y-axis position of the asteroid, containg a random value between -20 to 325
+  float y = random(-20, 330); // The y-axis position of the asteroid, containg a random value between -20 to 325
   float speed = random(1.5, 4); // The speed of the asteroid, containing a random value between 1.5 and 4
   
    /* Variable will act as a boolean, checking if the user has clicked between a distance of the asteroid image's width/height
@@ -48,7 +48,7 @@ class Asteroid
   void asteroid_clicked(float px, float py)
   {
     float d = dist(px, py, x, y);
-    if(d < 50)
+    if(d < 45)
     {
       hit = 1;
     }
@@ -89,8 +89,12 @@ class Asteroid
     popMatrix();
     if(rollover)
     {
+      strokeWeight(2);
+      stroke(255, 255, 0);
+      noFill();
+      rect(mouseX - 40, mouseY + 20, 80, 30);
       fill(255, 0, 0);
-      text("ASTEROID", 270, 575);
+      text("ASTEROID", mouseX - 30, mouseY + 40);
     }
   }
   

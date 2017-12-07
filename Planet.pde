@@ -3,7 +3,7 @@ class Planet
   // PImage contains pixel width/height
   PImage planet;
   float x = random(-20, 650);
-  float y = random(-20, 325);
+  float y = random(-20, 330);
   float speed = random(0.1, 1);
   String name;
   
@@ -36,17 +36,20 @@ class Planet
   void display()
   {
     image(planet, x, y, 100, 100);
-      if(rollover)
+    if(rollover)
     {
+      noFill();
+      rect(mouseX - 40, mouseY + 20, 80, 30);
       fill(255, 0, 0);
-      text(name, 270, 575);
+      fill(255, 0, 0);
+      text(name, mouseX - 30, mouseY + 40);
     }
   }
   
-   void rollover(float px, float py) 
+  void rollover(float px, float py) 
   {
     float d = dist(px, py, x, y);
-    if (d < 50)
+    if (d < 40)
     {
         rollover = true; 
     } 
