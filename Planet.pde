@@ -2,7 +2,7 @@ class Planet
 {
   // PImage contains pixel width/height
   PImage planet;
-  float x = random(-20, 550);
+  float x = random(-20, 650);
   float y = random(-20, 325);
   float speed = random(0.1, 1);
   
@@ -16,7 +16,7 @@ class Planet
    x = x - speed;
    if(x < -150)
    {
-     x = width;
+     x = width + 50;
    }
   }
   

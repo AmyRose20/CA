@@ -5,7 +5,7 @@ class Star
   float zpos = random(600);
   float sx = 0;
   float sy = 0;
-  float r = 3;
+  float r = random(0,3);
   float speed = random(1, 3);
   
   int hit = 0;
@@ -17,39 +17,6 @@ class Star
     {
       xpos = width;
     }
-   /* if(pos <= 25)
-     {
-        xpos = xpos + speed;
-        if(xpos > width)
-        {
-          xpos = random(0, width);
-        }
-      }
-     if(pos >= 75)
-     {
-       
-       ypos = ypos - speed;
-       if (ypos < -10)
-       {
-         ypos = random(0, 320);
-       }
-     }
-     if(pos > 25 && pos <= 50)
-     {
-       xpos = xpos - speed;
-       if(xpos < -10)
-       {
-         xpos = random(0, width);
-       }
-     }
-     if(pos > 50 && pos < 75)
-     {
-       ypos = ypos + speed;
-       if(ypos > 320)
-       {
-         ypos = random(0, 320);
-       }
-     }*/
   }
   
   void clicked(float px, float py)
