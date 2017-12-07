@@ -1,8 +1,8 @@
 class Spaceship
 {
+  // The 'Spaceship' class simply has one function which displays the object
   void display()
   {
-    // May delete
     strokeWeight(2);
     stroke(191, 189, 189);
     fill(191, 189, 189);

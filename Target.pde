@@ -1,5 +1,6 @@
 class Target
 {
+  // The 'Target' class simply has one function which displays the object
   void display_t()
   {
     stroke(255, 0, 0);
