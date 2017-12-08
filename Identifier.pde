@@ -1,5 +1,6 @@
 class Identifier 
 {
+   // The 'Identifier' class simply has one function which displays the object
   void display_id()
   {
    stroke(255, 255, 0);

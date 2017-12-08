@@ -10,6 +10,7 @@ class Asteroid
    and the current position of the mouse's x, y co-ordinates (mouseX, mouseY) This will be checked using the dist() function. */
   int hit = 0;
   
+  /* Variable will be used to check if the mouse is pressed over the button. This is initially false. */
   boolean rollover = false;
   
   // Object's constructors
@@ -98,10 +99,12 @@ class Asteroid
     }
   }
   
+  /* Function checks if the mouses current x, y position is over the image and will
+  display 'ASTEROID' if this is true*/
   void rollover(float px, float py) 
   {
     float d = dist(px, py, x, y);
-    if (d < 50)
+    if (d < 20)
     {
         rollover = true; 
     } 

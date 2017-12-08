@@ -5,6 +5,8 @@ class Identifier_Button
   float ypos = 400;
   float w = 40;
   float h = 20;
+  float center_x = 505;
+  float center_y = 410;
   
   // Boolean variables to test if the button is pressed 
   boolean light = false;
@@ -12,16 +14,16 @@ class Identifier_Button
   
   // Functions of the object
   /* When the mouse is pressed this function will be carried out. The values of mouseX and mouseY will 
-  be passed into the function and it's distance will be calculated between the button's x and y position
-  ussing the dist() function. This value will be stored in the variable 'd'. If the value of 'd' is < the 
-  radius of the button 'on' will be true and 'off' will be false. Function within draw() and mousePressed() in 
-  the main program will be able to be carried out. If the value of 'd' is > the radius, then 'on' will be false 
-  and 'off' will remain true and no function within draw() or mousPressed() that need on to be 
+  be passed into the function and it's distance will be calculated between the button's center x and y position
+  using the dist() function. This value will be stored in the variable 'd'. If the value of 'd' is < 20
+  'light' will be true and 'dark' will be false. Function within draw() and mousePressed() in 
+  the main program will be able to be carried out. If the value of 'd' is > 20, then 'light' will be false 
+  and 'dark' will remain true and no function within draw() or mousPressed() that need on to be 
   true will be carried out. */
   void clicked_i(float px, float py)
   {
-    float d = dist(px, py, xpos, ypos);
-    if( d < 40)
+    float d = dist(px, py, center_x, center_y);
+    if(d < 20)
     {
       if(dark)
       {

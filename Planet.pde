@@ -46,6 +46,8 @@ class Planet
     }
   }
   
+  /* Function checks if the mouses current x, y position is over the image and will
+  display the planets name if this is true*/
   void rollover(float px, float py) 
   {
     float d = dist(px, py, x, y);
