@@ -1,12 +1,12 @@
 class Identifier_Button
 {
   // Properties/variables of the object
-  float xpos = 485;
-  float ypos = 400;
-  float w = 40;
-  float h = 20;
-  float center_x = 505;
-  float center_y = 410;
+  float xpos = width - 400;
+  float ypos =  height - 206;
+  float w = 200;
+  float h = 45;
+  float center_x = 1066;
+  float center_y = 584.5;
   
   // Boolean variables to test if the button is pressed 
   boolean light = false;
@@ -23,7 +23,7 @@ class Identifier_Button
   void clicked_i(float px, float py)
   {
     float d = dist(px, py, center_x, center_y);
-    if(d < 20)
+    if(d < 45)
     {
       if(dark)
       {
@@ -53,8 +53,23 @@ class Identifier_Button
       fill(50, 205, 50);
     }
     rect(xpos, ypos, w, h);
+    text("IDENTIFIER", 1025, 530);
+  }
+}
+
+class Stat_Button 
+{
+  boolean clicked = false;
+  
+  void stat_button()
+  {
     stroke(0);
     fill(255);
-    rect(width - 400, 550, 200, 45);
+    rect(width - 400, height - 100, 200, 45);
+  }
+  
+  void clicked()
+  {
+    clicked = true;
   }
 }

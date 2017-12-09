@@ -2,7 +2,7 @@ class Star
 {
   // Properties/variables of the object
   float xpos = random(0, width + 50); // The x-axis position of the star, containing a random value between 0 to width
-  float ypos = random(0, 330); // The y-axis position of the star, containg a random value between 0 to 320
+  float ypos = random(0, 550); // The y-axis position of the star, containg a random value between 0 to 320
   float r = random(0, 3); // The radius of the star, containg a random value between 0 and 3 so the stars are different sizes
   float speed = random(1, 3); // The speed of the star, containing a random value between 1 and 3
   

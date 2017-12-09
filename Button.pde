@@ -1,9 +1,9 @@
 class Button
 {
   // Properties/variables of the object
-  float xpos = 60;
-  float ypos = 400;
-  float r = 12;
+  float xpos = 150;
+  float ypos =  height - 200;
+  float r = 24;
   
   // Boolean variables to test if the button is pressed 
   boolean on = false;
@@ -50,5 +50,8 @@ class Button
       fill(215, 25, 25);
     }
     ellipse(xpos, ypos, r*2, r*2);
+    textSize(15);
+    fill(255, 0, 0);
+    text("TARGET", 125, 525);
   }
 }

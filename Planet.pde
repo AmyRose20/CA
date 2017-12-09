@@ -3,20 +3,22 @@ class Planet
   // PImage contains pixel width/height
   PImage planet;
   float x = random(-20, 650);
-  float y = random(-20, 330);
+  float y;
   float speed = random(0.1, 1);
   String name;
   
   boolean rollover = false;
+  boolean no_go = false;
   
   // Object's constructor
   /*  This constructor comes from void setup(). The PImage array 'p' is first loaded and stored within the current index 'i' of
   the loop and then the array 'planetss' gets a new 'Planet' object added to it, while passing the 'p[i]' value to the
   constructor where it can be used. */
-  Planet(PImage tempPlanet, String tempName)
+  Planet(PImage tempPlanet, String tempName, float tempYpos)
   {
     planet = tempPlanet;
     name = tempName;
+    y = tempYpos;
   }
   
   // Functions of the object
@@ -39,10 +41,20 @@ class Planet
     if(rollover)
     {
       noFill();
-      rect(mouseX - 40, mouseY + 20, 80, 30);
-      fill(255, 0, 0);
-      fill(255, 0, 0);
-      text(name, mouseX - 30, mouseY + 40);
+      stroke(255, 255, 0);
+      rect(mouseX - 50, mouseY + 20, 90, 30);
+      textSize(15);
+      fill(255);
+      text(name, mouseX - 45, mouseY + 40);
+    }
+    if(no_go)
+    {
+      noFill();
+      stroke(255, 255, 0);
+      rect(mouseX - 50, mouseY + 20, 200, 60);
+      textSize(15);
+      fill(255);
+      text("You can't destroy planets,\nthis isn't the Death Star.", mouseX - 45, mouseY + 40);
     }
   }
   
@@ -58,6 +70,23 @@ class Planet
     else 
     {
         rollover = false;
+
+    }
+  }
+  
+  void scan(float px, float py) 
+  {
+    float d = dist(px, py, x, y);
+    if (d < 40)
+    {
+ 
+        no_go = true;
+    } 
+    else 
+    {
+
+        no_go = false;
     }
   }
 }
+  

@@ -3,7 +3,7 @@ class Asteroid
   // Properties/variables of the object
   PImage asteroid; // PImage contains pixel width/height
   float x = random(-20, 650); // The x-axis position of the asteroid, containing a random value between -20 to 650 
-  float y = random(-20, 330); // The y-axis position of the asteroid, containg a random value between -20 to 325
+  float y = random(0, 500); // The y-axis position of the asteroid, containg a random value between -20 to 325
   float speed = random(1.5, 4); // The speed of the asteroid, containing a random value between 1.5 and 4
   
    /* Variable will act as a boolean, checking if the user has clicked between a distance of the asteroid image's width/height
@@ -83,7 +83,7 @@ class Asteroid
     translate(x, y); // translate will change point of origin from (0, 0) to the random x, y values assigned
     /* rotate will change the angle of the object using radians as a unit of measurement, decreasing the value each
     time in relation to the current value of frameCount*/
-    rotate(-radians(frameCount)); 
+    rotate(-radians(frameCount));
     image(asteroid, 0, 0, 50, 50);
     /* The popMatrix() function will reset all translations and rotations previously specified within pushMatrix() so that when used again,
     rotate() and translate() can have different values without effecting the previous translate() and rotate() */
@@ -94,8 +94,9 @@ class Asteroid
       stroke(255, 255, 0);
       noFill();
       rect(mouseX - 40, mouseY + 20, 80, 30);
-      fill(255, 0, 0);
-      text("ASTEROID", mouseX - 30, mouseY + 40);
+      textSize(15);
+      fill(255);
+      text("ASTEROID", mouseX - 35, mouseY + 40);
     }
   }
   
