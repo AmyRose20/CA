@@ -53,7 +53,7 @@ class Star
       return false;
     }
   }
- 
+  
   /* This function will display the stars  onto the canvas using an ellispe that will draw the star  with no outline (noStroke()), white (fill(255))
   and with it's unique x position, y position and radius in the ellipse function.*/
   void display_stars()

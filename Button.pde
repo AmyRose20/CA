@@ -1,4 +1,4 @@
-class Button
+class T_Button
 {
   // Properties/variables of the object
   float xpos = 150;

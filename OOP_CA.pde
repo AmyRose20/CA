@@ -1,10 +1,11 @@
-Button b1; // Creating an object instance of the 'Button' class called 'b1'
+T_Button b1; // Creating an object instance of the 'Button' class called 'b1'
 Identifier_Button b2; // Creating an object instance of the 'Identifier_Button' class called 'b2'
 Identifier id1;  // Creating an object instance of the 'Identifier' class called 'id1'
 Spaceship ship; // Creating an instance of the 'Spaceship' class called 'ship'
 Target t1; // Creating an instance of the 'Target' class called 't1'
 Radar radar;
-Stat_Button stat_button;
+Stat_Button1 stat_button;
+Stat_Button2 stat_button2;
 
 // PImage is a built in class that will encapsulate information
 PImage[] p = new PImage[6]; // Using an array of type PImage to store five images called 'p'
@@ -26,24 +27,26 @@ int removed_asteroids = 0;
 import controlP5.*;
 ControlP5 cp5;
 
-
 int sliderValue = 0;
 // Using an imported library called 'Minum'. 'import' will allow information from the 'Minim' library to load in
 import ddf.minim.*;
 // A built in class in Minim called 'Minum'
 Minim minim;
 AudioPlayer player;
+AudioPlayer laser;
 
 void setup()
 {
   fullScreen();
-  b1 = new Button(); // Initiliasing 'b1' as a new 'Button' object
+  //size(500, 500);
+  b1 = new T_Button(); // Initiliasing 'b1' as a new 'Button' object
   b2 = new Identifier_Button();
   id1 = new Identifier();
   t1 = new Target();
   ship = new Spaceship();
   radar = new Radar();
-  stat_button = new Stat_Button();
+  stat_button = new Stat_Button1();
+  stat_button2 = new Stat_Button2();
   
   boom = loadImage("boom.png");
   
@@ -77,106 +80,83 @@ void setup()
   
   minim = new Minim(this);
   player = minim.loadFile("01 - Dead Already.mp3");
+  player.loop();
+  laser = minim.loadFile("Laser.mp3");
   
-  
-  
-    cp5 = new ControlP5(this);
+  cp5 = new ControlP5(this);
   
   // add a horizontal sliders, the value of this slider will be linked
   // to variable 'sliderValue' 
   cp5.addSlider("sliderValue")
-     .setPosition(100, height - 100)
-     .setRange(0,1);
+  .setPosition(100, (height / 100) * 95)
+  .setRange(0,1);
 }
 
 void draw()
 {
   if(stat_button.clicked)
   {
-    background(0);
+    view_stats();
   }
   else
   {
     background(0);
     draw_planets();
-    for(int i = stars.size()-1; i >= 0; i--)
+    draw_stars();
+    draw_asteroids();
+ 
+    
+    ship.display(); // Display the intance 'ship' of the 'Ship' object type
+    b1.display_b(); // Display the intance 'b1' of the 'Button' object type
+    b2.display_i(); // Display the intance 'b2' of the 'Identifier_Button' object type
+    
+    radar.draw_radar();
+      
+    /* If the boolean variable 'light' is true within the 'Identifier_Button' object, these functions within
+    the 'Asteroid' class and the 'Planet' class will be used. These functions will check if the mouses current 
+    position is within the distance of the objects centre and edge and will display if it is an asteroid or a named
+    planet. */
+    if(b2.light)
     {
-      Star b = stars.get(i);
-      b.display_stars();
-      b.move();
-      // If the instance of this object returns true from it's remove() function, it will remove the the instance.
-      if(b.remove_s())
+      for(int i = asteroids.size()-1; i >= 0; i--)
       {
-        image(boom, b.xpos, b.ypos, 40, 40);
-        stars.remove(i);
-        stars.add(new Star());
-        removed_stars++;
+        Asteroid a1 = asteroids.get(i);
+        a1.rollover(mouseX, mouseY);
+      }
+      
+      for(int i = 0; i < planets.length; i++)
+      {
+        planets[i].rollover(mouseX, mouseY); 
       }
     }
-    
-    for(int i = asteroids.size()-1; i >= 0; i--)
-    {
-      Asteroid a1 = asteroids.get(i); // An ArrayList doesn't know what it is storing so we have to cast the object coming out, in this case as 'a1'
-      a1.display();
-      a1.move();
-      /* If the instance of this object returns true from it's remove() function, it will remove the the instance and create a new one at
-      an x position of 650. */
-      if(a1.remove_a())
-      {
-        image(boom, a1.x, a1.y, 80, 80);
-        asteroids.remove(i);
-        asteroids.add(new Asteroid(a[i], xpos));
-        removed_asteroids++;
-      }
-    }
-   }
-    
-   ship.display(); // Display the intance 'ship' of the 'Ship' object type
-   b1.display_b(); // Display the intance 'b1' of the 'Button' object type
-   b2.display_i(); // Display the intance 'b2' of the 'Identifier_Button' object type
-    
-   radar.draw_radar();
-      
-   /* If the boolean variable 'light' is true within the 'Identifier_Button' object, these functions within
-   the 'Asteroid' class and the 'Planet' class will be used. These functions will check if the mouses current 
-   position is within the distance of the objects centre and edge and will display if it is an asteroid or a named
-   planet. */
-   if(b2.light)
-   {
-     for(int i = asteroids.size()-1; i >= 0; i--)
-     {
-       Asteroid a1 = asteroids.get(i);
-       a1.rollover(mouseX, mouseY);
-     }
-      
-     for(int i = 0; i < planets.length; i++)
-     {
-       planets[i].rollover(mouseX, mouseY); 
-     }
-   }
    
-   if(b1.on)
-   {
-     for(int i = 0; i < planets.length; i++)
-     {
+    if(b1.on)
+    {
+      for(int i = 0; i < planets.length; i++)
+      {
          planets[i].scan(mouseX, mouseY); 
-     }
+      }
     }
     
-   /* The instance of the object 't1' of object type 'Target' will only carry out it's display function if the boolean variable 'on' in 'b1' of 
-   type 'Button' is true. */
-   if(b1.on)
-   {
-     // TARGET
-     t1.display_t();
-   }
-   if(b2.light)
-   {
-     // IDENTIFIER
-     id1.display_id();
-   }
-   stat_button.stat_button();
-   wave_length();
+    /* The instance of the object 't1' of object type 'Target' will only carry out it's display function if the boolean variable 'on' in 'b1' of 
+    type 'Button' is true. */
+    if(b1.on)
+    {
+      // TARGET
+      t1.display_t();
+    }
+    if(b2.light)
+    {
+      // IDENTIFIER
+      id1.display_id();
+    }
+    stat_button.stat_button();
+    stat_button.text_display();
+  }
+  wave_length();
+  fill(0,0,139);
+  textSize(15);
+  text("Play music", 110, 700);
 }
 
 
@@ -231,9 +211,53 @@ void draw_planets()
   }
 }
 
+// Function to draw stars
+void draw_stars()
+{
+ for(int i = stars.size()-1; i >= 0; i--)
+ {
+   Star b = stars.get(i);
+   b.display_stars();
+   b.move();
+   // If the instance of this object returns true from it's remove() function, it will remove the the instance.
+   if(b.remove_s())
+   {
+     laser.rewind();
+     laser.play();
+     image(boom, b.xpos, b.ypos, 40, 40);
+     stars.remove(i);
+     stars.add(new Star());
+     removed_stars++;
+    }
+  }
+}
+
+// Function to draw asteroids
+void draw_asteroids()
+{
+ for(int i = asteroids.size()-1; i >= 0; i--)
+ {
+   Asteroid a1 = asteroids.get(i); // An ArrayList doesn't know what it is storing so we have to cast the object coming out, in this case as 'a1'
+   a1.display();
+   a1.move();
+   /* If the instance of this object returns true from it's remove() function, it will remove the the instance and create a new one at
+   an x position of 650. */
+   if(a1.remove_a())
+   {
+    laser.rewind();
+    laser.play();
+    image(boom, a1.x, a1.y, 80, 80);
+    asteroids.remove(i);
+    asteroids.add(new Asteroid(a[i], xpos));
+    removed_asteroids++;
+   }
+  }
+}
+
 void wave_length()
 {
   fill(0);
+  stroke(218, 112, 214);
   rect(350, 600, 160, 90);
   if(sliderValue == 1)
   {
@@ -254,4 +278,22 @@ void wave_length()
     line(350, 645, 510, 645);
   }
 }
-  
+
+void view_stats()
+{
+  background(95,158,160);
+    stat_button2.stat_button();
+    stat_button2.text_display();
+    fill(255);
+    rect(100, 50, 400, 400);
+    rect(600, 50, 480, 400);
+    textSize(40);
+    fill(0);
+    //PFont font;
+    //font = loadFont("AgencyFB-Reg-48.vlw");
+    //textFont(font, 60);
+    text("Stars destroyed", 150, 100);
+    text(removed_stars, 280, 300);
+    text("Asteroids destroyed", 650, 100);
+    text(removed_asteroids, 840, 300);
+}

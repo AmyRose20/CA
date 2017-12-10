@@ -2,8 +2,8 @@ class Asteroid
 {
   // Properties/variables of the object
   PImage asteroid; // PImage contains pixel width/height
-  float x = random(-20, 650); // The x-axis position of the asteroid, containing a random value between -20 to 650 
-  float y = random(0, 500); // The y-axis position of the asteroid, containg a random value between -20 to 325
+  float x = random(-20, width + 50); // The x-axis position of the asteroid, containing a random value between -20 to 650 
+  float y = random(0, (height / 100) * 60); // The y-axis position of the asteroid, containg a random value between -20 to 325
   float speed = random(1.5, 4); // The speed of the asteroid, containing a random value between 1.5 and 4
   
    /* Variable will act as a boolean, checking if the user has clicked between a distance of the asteroid image's width/height

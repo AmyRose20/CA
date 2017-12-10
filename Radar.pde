@@ -4,7 +4,7 @@ class Radar
   {
     pushMatrix();
     int timer = second();
-    translate(width - 680, height - 125);
+    translate(width / 100 * 52.5, height / 100 * 92);
     stroke(255,0,0);
     if (timer % 4 == 0)
     {

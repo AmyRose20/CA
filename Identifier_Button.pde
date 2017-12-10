@@ -3,8 +3,6 @@ class Identifier_Button
   // Properties/variables of the object
   float xpos = width - 400;
   float ypos =  height - 206;
-  float w = 200;
-  float h = 45;
   float center_x = 1066;
   float center_y = 584.5;
   
@@ -52,24 +50,8 @@ class Identifier_Button
       stroke(34, 139, 34);
       fill(50, 205, 50);
     }
-    rect(xpos, ypos, w, h);
-    text("IDENTIFIER", 1025, 530);
-  }
-}
-
-class Stat_Button 
-{
-  boolean clicked = false;
-  
-  void stat_button()
-  {
-    stroke(0);
+    rect(xpos, ypos, 200, 45);
     fill(255);
-    rect(width - 400, height - 100, 200, 45);
-  }
-  
-  void clicked()
-  {
-    clicked = true;
+    text("IDENTIFIER", 1025, 590);
   }
 }
