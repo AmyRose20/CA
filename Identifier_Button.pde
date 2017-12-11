@@ -3,6 +3,7 @@ class Identifier_Button
   // Properties/variables of the object
   float xpos = width - 400;
   float ypos =  height - 206;
+  // Thes two variables are the centre of the rectangle's co-ordinates
   float center_x = 1066;
   float center_y = 584.5;
   
@@ -13,11 +14,11 @@ class Identifier_Button
   // Functions of the object
   /* When the mouse is pressed this function will be carried out. The values of mouseX and mouseY will 
   be passed into the function and it's distance will be calculated between the button's center x and y position
-  using the dist() function. This value will be stored in the variable 'd'. If the value of 'd' is < 20
-  'light' will be true and 'dark' will be false. Function within draw() and mousePressed() in 
-  the main program will be able to be carried out. If the value of 'd' is > 20, then 'light' will be false 
-  and 'dark' will remain true and no function within draw() or mousPressed() that need on to be 
-  true will be carried out. */
+  using the dist() function. This value will be stored in the variable 'd'. If the value of 'd' is < 45
+  'light' will be true and 'dark' will be false. Functions within draw() and mousePressed() in 
+  the main program will be able to be carried out depenidng on the value of 'light'. If the value of 'd' is > 45, 
+  then 'light' will be false and 'dark' will remain true and no function within draw() or mousPressed() that need 
+  'light' to be true will be carried out. */
   void clicked_i(float px, float py)
   {
     float d = dist(px, py, center_x, center_y);

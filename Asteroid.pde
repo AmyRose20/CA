@@ -2,8 +2,8 @@ class Asteroid
 {
   // Properties/variables of the object
   PImage asteroid; // PImage contains pixel width/height
-  float x = random(-20, width + 50); // The x-axis position of the asteroid, containing a random value between -20 to 650 
-  float y = random(0, (height / 100) * 60); // The y-axis position of the asteroid, containg a random value between -20 to 325
+  float x = random(-20, width + 50); // The x-axis position of the asteroid, containing a random value between -20 to width + 50
+  float y = random(0, (height / 100) * 60); // The y-axis position of the asteroid, containing a random value between 0 and (height / 100) * 60
   float speed = random(1.5, 4); // The speed of the asteroid, containing a random value between 1.5 and 4
   
    /* Variable will act as a boolean, checking if the user has clicked between a distance of the asteroid image's width/height
@@ -24,7 +24,7 @@ class Asteroid
   
   /* This second contrcutor is similar to the last one. However, this constructor is only executed if the 'Target' object 
   instance 't1' is activated and the mouse is pressed within the distance of the object's width/height. As the object gets
-  deleted from the list, a new object instance is created in it's place, with a default x positon of 650, to avoid the 
+  deleted from the list, a new object instance is created in it's place, with a default x positon of width + 100, to avoid the 
   asteroid appearing out of nowhere in the middle of the canvas. */
   Asteroid(PImage tempAsteroid, float tempXpos)
   {
@@ -38,7 +38,7 @@ class Asteroid
     x = x - speed; // The object's x position is decremented each frame by the speed.
     if(x < -150)
     {
-      x = width + 50; // The object's x postion will reset to 650, once it has reached width - 150 and it will return to the screen
+      x = width + 50; // The object's x postion will reset to with + 50, once it has reached width - 150 and it will return to the screen
     }
   }
   
@@ -79,15 +79,17 @@ class Asteroid
     /* The pushMatrix() ensures that all translations and rotations until popMatrix() is declared will be saved and individual to the object
     between these two functions. */
     pushMatrix();
-    imageMode(CENTER); // used to ensure image rotates around it's center
-    translate(x, y); // translate will change point of origin from (0, 0) to the random x, y values assigned
-    /* rotate will change the angle of the object using radians as a unit of measurement, decreasing the value each
-    time in relation to the current value of frameCount*/
+    imageMode(CENTER); // Used to ensure image rotates around it's center
+    translate(x, y); // Translate will change point of origin from (0, 0) to the random x, y values assigned
+    /* Rotate will change the angle of the object using radians as a unit of measurement, decreasing the value each
+    time in relation to the current value of frameCount. */
     rotate(-radians(frameCount));
     image(asteroid, 0, 0, 50, 50);
     /* The popMatrix() function will reset all translations and rotations previously specified within pushMatrix() so that when used again,
     rotate() and translate() can have different values without effecting the previous translate() and rotate() */
     popMatrix();
+    /* If rollover is true, a box containg the word 'ASETROID' will appear in close proximity
+    to the mouses current x, y co-ordinates */
     if(rollover)
     {
       strokeWeight(2);

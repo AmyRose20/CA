@@ -1,9 +1,9 @@
 class Star
 {
   // Properties/variables of the object
-  float xpos = random(0, width + 50); // The x-axis position of the star, containing a random value between 0 to width
-  float ypos = random(0, 550); // The y-axis position of the star, containg a random value between 0 to 320
-  float r = random(0, 3); // The radius of the star, containg a random value between 0 and 3 so the stars are different sizes
+  float xpos = random(0, width + 50); // The x-axis position of the star, containing a random value between 0 to width + 50
+  float ypos = random(0, 550); // The y-axis position of the star, containg a random value between 0 to 550
+  float r = random(0, 3); // The radius of the star, contaning a random value between 0 and 3 so the stars are different sizes
   float speed = random(1, 3); // The speed of the star, containing a random value between 1 and 3
   
   /* Variable will act as a boolean, checking if the user has clicked between a distance of the asteroid image's width/height
@@ -11,7 +11,7 @@ class Star
   int hit = 0;
    
   // Functions of the object
-  /* This function will decrement the x positon of the star by 1 by the speed. Once the value of the x position is < 0, 
+  /* This function will decrement the x positon of the star by 1 of the speed. Once the value of the x position is < 0, 
   it will be reset back to width + 50. it is slightly off the size of the canvas to give a more natural appearance
   when the star's position is reset. */
   void move()
@@ -54,12 +54,22 @@ class Star
     }
   }
   
-  /* This function will display the stars  onto the canvas using an ellispe that will draw the star  with no outline (noStroke()), white (fill(255))
-  and with it's unique x position, y position and radius in the ellipse function.*/
-  void display_stars()
+  /* This function will display the stars  onto the canvas using an ellispe that will draw the star white (fill(255))
+  and with it's unique x position, y position and radius in the ellipse function. Depending on the value of 'i', if it is an odd number
+  the star will have a yellow outline, if it is even it will contain no outline. */
+  void display_stars(int i)
   {
-    noStroke();
+    if(i % 2 == 0)
+    {
+      noStroke();
+    }
+    else
+    {
+      stroke(255, 255, 0);
+      strokeWeight(1);
+    }
     fill(255);
     ellipse(xpos, ypos, r*2, r*2);
   }
 }
+  
